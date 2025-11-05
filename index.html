@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo mundo odeia a banca - Banca</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Bem-vindo ao "Todo mundo odeia a banca"</h1>
+        <p>Pressione o botão abaixo para obter uma frase problema e começar o jogo. Existem 10 possíveis problemas.</p>
+
+        <button type="button" onclick="frase()" id="botaoFrase">Obter Frase Problema</button>
+
+        <p class="gerada" id="problema"></p>
+
+    </div>
+
+    <button class="botao-regras-fixo" onclick="abrirModal()"> Regras</button>
+
+    <div id="modalRegras" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>Regras do Jogo</h2>
+            <p>
+                As regras do jogo são simples:
+            </p>
+            <ul>
+                <li>Ao clicar no botão, uma frase aleatória dentre mais de 1500 diferentes será exibida. Tente resolver
+                    o problema da forma mais criativa possível!</li>
+                <li>Você pode jogar tanto sozinho, para estimular sua criatividade resolvendo problemas malucos, quanto
+                    acompanhado.</li>
+                <li>Jogando em grupos, é realizado um sistema de rodadas, nas quais cada um dos participantes dá uma
+                    solução criativa diferente e, ao fim da rodada, é votada a melhor solução para o problema, com o
+                    jogador ganhando um ponto. Um jogador não pode votar em si mesmo.</li>
+                <li>Em grupos, há a inserção do sistema de poderes, no qual o jogador vencedor de uma rodada ganha um
+                    dentre 6 poderes diferentes disponíveis no jogo. Todo esse sistema está implementado no botao "P" presente
+                    no placar.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <button class="botao-placar-fixo" onclick="abrirPlacar()">Placar</button>
+
+
+    <div id="modalPlacar" class="modal">
+        <div class="modal-content">
+            <button class="botao-reset" onclick="resetarJogo()">↻ Resetar</button>
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <div id="configInicial">
+                <h2>Configurar Jogo</h2>
+                <p>Quantos jogadores?</p>
+                <input type="number" id="numJogadores" min="2" max="8" value="4">
+                <button onclick="iniciarPlacar()">Começar</button>
+            </div>
+            <div id="placarContainer" style="display:none;">
+                <h2>Placar</h2>
+                <div id="jogadoresContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalPoderes" class="modal" style="display:none;">
+        <div class="modal-content">
+            <button class="btn-voltar" onclick="voltarPlacar()">↩ Voltar</button>
+            <h2>Poderes</h2>
+            <div id="poderesContainer"></div>
+            <button id="btnRolarDado" class="btn-dado">🎲 Rolar Novo Poder</button>
+        </div>
+    </div>
+
+    <div id="modalCatalogoPoderes" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>Catálogo de Poderes</h2>
+            <div id="catalogoContainer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
