@@ -33,17 +33,25 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background 0.2s ease-in-out;
 }
 
 button:hover {
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-obter:hover {
     background-color: #19191a;
 }
 
-#historia {
+#problema {
     margin-top: 20px;
     font-weight: bold;
     color: #333335;
+    transition: 0.3s;
 }
+
+
 
 .modal {
     display: none;
@@ -153,19 +161,35 @@ button:hover {
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease-in-out;
 }
 
 .botao-regras-fixo:hover {
     background-color: #19191a;
 }
 
-#historia {
-    transition: opacity 0.5s;
-}
-
 .fade-out {
     opacity: 0;
+}
+
+.esgotado {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.btn-reiniciar {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-reiniciar:hover {
+    transition: all 0.2s ease-in-out;
+    text-decoration: underline;
+    transform: scale(1.03);
 }
 
 .botao-placar-fixo {
@@ -180,7 +204,7 @@ button:hover {
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .botao-placar-fixo:hover {
@@ -241,7 +265,7 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .btn-usar:hover {
@@ -295,7 +319,7 @@ button:hover {
     cursor: pointer;
     margin-top: 15px;
     font-size: 16px;
-    transition: all 0.3s;
+    transition: all 0.2s;
     display: block;
     width: 100%;
 }
@@ -382,7 +406,7 @@ button:hover {
     cursor: pointer;
     margin: 10px 0;
     font-size: 14px;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .btn-catalogo:hover {
@@ -445,4 +469,29 @@ button:hover {
 .input-renomear:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(183, 15, 15, 0.2);
+}
+
+.botao-problemas-fixo {
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    background-color: #333335;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.botao-problemas-fixo:hover {
+    background-color: #19191a;
+}
+
+#timerProblema {
+    color: #b70f0f;
+    font-family: 'Montserrat', sans-serif;
 }

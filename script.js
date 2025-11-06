@@ -169,6 +169,15 @@ function resetarJogo() {
         jogoIniciado = false;
         jogadores = [];
 
+        // Reinicia as frases
+        frasesDisponiveis = [...frases];
+        problemasFinanceirosDisponiveis = [...problemasFinanceiros];
+        
+        // Limpa o elemento de frases
+        const elemento = document.getElementById('problema');
+        elemento.innerHTML = '';
+        elemento.classList.remove('esgotado');
+
         // Fecha todos os modais
         document.querySelectorAll('.modal').forEach(modal => {
             modal.style.display = 'none';
@@ -245,19 +254,23 @@ function rolarDadoPoder(jogadorId) {
     const jogador = jogadores.find(j => j.id === jogadorId);
 
     if (jogador) {
-        jogador.poderes.push(resultado);
-        mostrarPoderes(jogadorId); // Atualiza a lista
-        
-        // Mostra notificação temporária
-        mostrarNotificacao(
-            `${jogador.nome} ganhou: ${poderes[resultado-1].nome}`,
-            'sucesso'
-        );
+        // Verifica se o resultado é um poder válido
+        const poderSorteado = poderes.find(p => p.id === resultado);
+        if (poderSorteado) {
+            jogador.poderes.push(resultado);
+            mostrarPoderes(jogadorId); // Atualiza a lista
+            
+            // Mostra notificação temporária
+            mostrarNotificacao(
+                `${jogador.nome} ganhou: ${poderSorteado.nome}`,
+                'sucesso'
+            );
 
-        localStorage.setItem('jogoDados', JSON.stringify({
-            jogadores: jogadores,
-            jogoIniciado: true
-        }));
+            localStorage.setItem('jogoDados', JSON.stringify({
+                jogadores: jogadores,
+                jogoIniciado: true
+            }));
+        }
     }
 }
 
@@ -333,8 +346,7 @@ function abrirModal() {
 
 function fecharModal() {
     // Lista de todos os modais que devem ser fechados
-    
-    modaisParaFechar.forEach(modalId => {
+    modaisParaFechar.concat(['modalProblemasFinanceiros']).forEach(modalId => {
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.style.display = 'none';
@@ -356,21 +368,116 @@ document.addEventListener('click', (e) => {
     }
 });
 
+function reiniciarFrases() {
+    if (confirm("Tem certeza que deseja reiniciar as frases? O jogo voltará ao início.")) {
+        // Reinicia as frases
+        frasesDisponiveis = [...frases];
+        problemasFinanceirosDisponiveis = [...problemasFinanceiros];
+        
+        // Limpa o elemento
+        const elemento = document.getElementById('problema');
+        elemento.classList.add('fade-out');
+        setTimeout(() => {
+            elemento.innerHTML = ''; // Limpa o conteúdo
+            elemento.classList.remove('fade-out');
+            elemento.classList.remove('esgotado');
+        }, 500);
+        // Reinicia o jogo
+        resetarJogo();
+    }
+}
+
+// Modal Problemas Financeiros
+function abrirModalProblemasFinanceiros() {
+    document.getElementById('modalProblemasFinanceiros').style.display = 'flex';
+    resetarTimerProblema();
+    document.getElementById('problemaFinanceiroTexto').innerText = '';
+}
+
+function sortearProblemaFinanceiro() {
+    if (problemasFinanceirosDisponiveis.length === 0) {
+        document.getElementById('problemaFinanceiroTexto').innerText = 'Todos os problemas já foram sorteados!';
+        return;
+    }
+    resetarTimerProblema(); // Resetar timer ao sortear
+    const indice = Math.floor(Math.random() * problemasFinanceirosDisponiveis.length);
+    const problema = problemasFinanceirosDisponiveis[indice];
+    document.getElementById('problemaFinanceiroTexto').innerText = problema;
+    problemasFinanceirosDisponiveis.splice(indice, 1);
+    iniciarTimerProblema();
+}
+
+function iniciarTimerProblema() {
+    resetarTimerProblema();
+    tempoRestante = 60;
+    atualizarTimerProblema();
+    timerInterval = setInterval(() => {
+        tempoRestante--;
+        atualizarTimerProblema();
+        if (tempoRestante <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timerProblema').innerText = 'Tempo esgotado!';
+        }
+    }, 1000);
+}
+
+function resetarTimerProblema() {
+    if (timerInterval) clearInterval(timerInterval);
+    tempoRestante = 60;
+    document.getElementById('timerProblema').innerText = '01:00';
+}
+
+function atualizarTimerProblema() {
+    const min = String(Math.floor(tempoRestante / 60)).padStart(2, '0');
+    const sec = String(tempoRestante % 60).padStart(2, '0');
+    document.getElementById('timerProblema').innerText = `${min}:${sec}`;
+}
+
 const frases = [
-    "Teste1",
-    "Teste2",
-    "Teste3",
-    "Teste4",
-    "Teste5"
-  ];
+    "A empresa pretende abrir uma nova filial e precisa definir como financiar o investimento de R$ 200.000.",
+    "Você recebeu R$ 10.000 e quer aplicá-los por 2 anos. Há opções com juros simples e compostos.",
+    "A taxa nominal é de 18% a.a., e a inflação prevista é de 8% a.a.",
+    "Um amigo te pediu R$ 500,00 emprestados, prometendo devolver em um mês com 5% de juros. Vale a pena emprestar?",
+    "Você investiu R$ 5.000 em uma aplicação com taxa de juros de 8% ao ano, durante 3 anos. Identifique a melhor estratégia ou cálculo para determinar o montante final (M) dessa aplicação no regime de juros compostos.",
+    "A empresa enfrenta períodos de baixa liquidez e atrasos de recebimento.",
+    "Você pode escolher entre investir em CDB (renda fixa) ou em ações de uma startup. Como decidir?",
+    "Após fechamento do balanço, o patrimônio líquido caiu 25%.",
+    "Um projeto apresenta TIR menor que o custo de capital da empresa.",
+    "A empresa não consegue pagar fornecedores e salários no prazo."
+];
+
+let frasesDisponiveis = [...frases];
+
+const problemasFinanceiros = [
+    "Problema 1",
+    "Problema 2",
+    "Problema 3",
+    "Problema 4",
+    "Problema 5"
+];
+
+let problemasFinanceirosDisponiveis = [...problemasFinanceiros];
+let timerInterval = null;
+let tempoRestante = 60;
 
 function frase() {
     const elemento = document.getElementById('problema');
     elemento.classList.add('fade-out');
 
     setTimeout(() => {
-        const num = Math.floor(Math.random() * frases.length);
-        elemento.innerText = frases[num];
+        if (frasesDisponiveis.length === 0) {
+            elemento.innerHTML = `<button onclick="reiniciarFrases()" class="btn-reiniciar esgotado">Frases esgotadas.</button>`;
+            elemento.classList.remove('fade-out');
+            return;
+        }
+
+        const indice = Math.floor(Math.random() * frasesDisponiveis.length);
+        elemento.innerText = frasesDisponiveis[indice];
+        elemento.classList.remove('esgotado');
+        
+        // Remove a frase usada do array de disponíveis
+        frasesDisponiveis.splice(indice, 1);
+        
         elemento.classList.remove('fade-out');
     }, 500);
 }

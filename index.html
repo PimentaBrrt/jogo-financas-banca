@@ -20,33 +20,72 @@
         <h1>Bem-vindo ao "Todo mundo odeia a banca"</h1>
         <p>Pressione o botão abaixo para obter uma frase problema e começar o jogo. Existem 10 possíveis problemas.</p>
 
-        <button type="button" onclick="frase()" id="botaoFrase">Obter Frase Problema</button>
+        <button class="btn-obter" type="button" onclick="frase()" id="botaoFrase">Obter Frase Problema</button>
 
         <p class="gerada" id="problema"></p>
 
     </div>
 
     <button class="botao-regras-fixo" onclick="abrirModal()"> Regras</button>
+    <button class="botao-problemas-fixo" onclick="abrirModalProblemasFinanceiros()">Problemas Financeiros</button>
 
     <div id="modalRegras" class="modal">
         <div class="modal-content">
             <span class="close" onclick="fecharModal()">&times;</span>
             <h2>Regras do Jogo</h2>
             <p>
-                As regras do jogo são simples:
+                As regras do jogo são as seguintes:
             </p>
             <ul>
-                <li>Ao clicar no botão, uma frase aleatória dentre mais de 1500 diferentes será exibida. Tente resolver
-                    o problema da forma mais criativa possível!</li>
-                <li>Você pode jogar tanto sozinho, para estimular sua criatividade resolvendo problemas malucos, quanto
-                    acompanhado.</li>
-                <li>Jogando em grupos, é realizado um sistema de rodadas, nas quais cada um dos participantes dá uma
-                    solução criativa diferente e, ao fim da rodada, é votada a melhor solução para o problema, com o
-                    jogador ganhando um ponto. Um jogador não pode votar em si mesmo.</li>
-                <li>Em grupos, há a inserção do sistema de poderes, no qual o jogador vencedor de uma rodada ganha um
-                    dentre 6 poderes diferentes disponíveis no jogo. Todo esse sistema está implementado no botao "P" presente
-                    no placar.</li>
+                <li>
+                    No começo do jogo, cada jogador compra 5 cartas. Essas são as "Cartas Solução".
+                </li>
+                <li>
+                    Ao clicar no botão, uma das 10 frases problemas presentes no jogo será aleatoriamente sorteada. Com as cartas
+                    que possuem em mão, os jogadores devem tentar solucionar o problema da melhor forma possível.
+                </li>
+                <li>
+                    Cada jogador começa com 1000 reais de patrimônio. Ganha o jogador que tiver mais patrimônio quando as frases
+                    problema acabarem. Caso um jogador zere seu patrimônio, é expulso do jogo.
+                </li>
+                <li>
+                    Ao final de cada rodada, quando todas as cartas solução forem escolhidas, deve ser realizada uma votação para
+                    decidir a melhor solução. Não é permitido votar em si mesmo. Em caso de empate, um dado será rolado. Um jogador
+                    escolhe par, e outro ímpar. O número rolado decidirá o ganhador.
+                </li>
+                <li>
+                    Ao vencer uma rodada, o jogador é premiado com R$300,00 de patrimônio. Além disso, ele pode tentar solucionar um
+                    problema simples de finanças em até 1 minuto. Caso consiga, recebe R$200,00 de patrimônio a mais e uma "Carta
+                    Poder".
+                </li>
+                <li>
+                    "Cartas Poder" são cartas que podem ser utilizadas a qualquer momento por um jogador que possuí-la. Elas podem
+                    ser utilizadas a qualquer momento, e concedem efeitos únicos.
+                </li>
             </ul>
+        </div>
+    </div>
+
+    <div id="modalProblemasFinanceiros" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2>Problema Financeiro</h2>
+            <div style="margin-bottom: 10px; text-align: left; font-size: 1em;">
+                <strong>Fórmulas de Capitalização:</strong><br>
+                <span style="display:block; margin-top:6px;">
+                    <strong>Juros Simples:</strong> <br>
+                    <span style="font-family:monospace;">J = C × i × t</span><br>
+                    <span style="font-size:0.95em; color:#555;">J = juros, C = capital, i = taxa, t = tempo</span>
+                </span>
+                <span style="display:block; margin-top:10px;">
+                    <strong>Juros Compostos:</strong> <br>
+                    <span style="font-family:monospace;">M = C × (1 + i)<sup>t</sup></span><br>
+                    <span style="font-size:0.95em; color:#555;">M = montante, C = capital, i = taxa, t = tempo</span>
+                </span>
+            </div>
+            <div id="timerProblema" style="font-size:1.5em;margin:10px 0;">01:00</div>
+            <button id="btnSortearProblemaFinanceiro" onclick="sortearProblemaFinanceiro()">Obter Problema Financeiro</button>
+            <div id="problemaFinanceiroTexto" style="margin-top:20px;font-weight:bold;"></div>
         </div>
     </div>
 
@@ -61,7 +100,7 @@
             <div id="configInicial">
                 <h2>Configurar Jogo</h2>
                 <p>Quantos jogadores?</p>
-                <input type="number" id="numJogadores" min="2" max="8" value="4">
+                <input type="number" id="numJogadores" min="2" max="6" value="4">
                 <button onclick="iniciarPlacar()">Começar</button>
             </div>
             <div id="placarContainer" style="display:none;">
