@@ -449,11 +449,26 @@ const frases = [
 let frasesDisponiveis = [...frases];
 
 const problemasFinanceiros = [
-    "Problema 1",
-    "Problema 2",
-    "Problema 3",
-    "Problema 4",
-    "Problema 5"
+    "Um capital de R$ 1.000 é aplicado a juros simples de 5% ao mês durante 4 meses. Qual o montante ao final do período?",
+    "Um investidor aplicou R$ 2.500 a juros simples de 8% ao ano. Após 3 anos, quanto ele terá de juros?",
+    "Quanto tempo um capital de R$ 1.200 deve ficar aplicado a juros simples de 10% ao mês para render R$ 600 de juros?",
+    "Um empréstimo de R$ 900 foi feito a juros simples de 4% ao mês. Qual o montante após 10 meses?",
+    "Determine a taxa mensal de juros simples que transforma R$ 500 em R$ 800 após 6 meses.",
+    "Um capital de R$ 3.000 gerou R$ 900 de juros em 2 anos. Qual foi a taxa anual de juros simples?",
+    "Um capital de R$ 1.500 foi aplicado a 2% ao mês. Qual o valor dos juros após 8 meses?",
+    "Qual capital, aplicado a juros simples de 6% ao mês durante 5 meses, produzirá R$ 450 de juros?",
+    "Uma dívida de R$ 2.000 foi cobrada com 12% de juros simples em 3 meses. Qual o valor total pago?",
+    "Um investimento rendeu R$ 720 em juros simples, a uma taxa de 3% ao mês, durante 12 meses. Qual foi o capital investido?",
+    "Um capital de R$ 1.000 é aplicado a juros compostos de 5% ao mês durante 3 meses. Qual o montante final?",
+    "Um investidor aplicou R$ 2.000 a juros compostos de 10% ao ano. Quanto ele terá ao final de 2 anos?",
+    "Qual será o montante de uma aplicação de R$ 1.500 a juros compostos de 2% ao mês durante 6 meses?",
+    "Determine o capital inicial que, aplicado a 3% ao mês durante 5 meses, produz um montante de R$ 1.159,27 em juros compostos.",
+    "Um capital de R$ 4.000 foi aplicado a juros compostos de 1,5% ao mês. Qual o valor acumulado após 8 meses?",
+    "Um capital triplicou em 6 anos sob juros compostos. Qual foi a taxa anual de juros aproximada?",
+    "Uma quantia de R$ 5.000 foi aplicada a juros compostos de 12% ao ano. Qual será o valor acumulado após 3 anos?",
+    "Qual é o montante obtido aplicando R$ 800 a juros compostos de 5% ao mês durante 10 meses?",
+    "Um capital de R$ 2.500 gerou R$ 1.050 de juros em 4 meses sob juros compostos. Qual foi a taxa mensal aproximada?",
+    "Quanto tempo é necessário para um capital dobrar, aplicado a juros compostos de 10% ao mês?"
 ];
 
 let problemasFinanceirosDisponiveis = [...problemasFinanceiros];
