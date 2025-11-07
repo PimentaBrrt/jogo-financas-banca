@@ -274,7 +274,7 @@ function rolarDadoPoder(jogadorId) {
     }
 }
 
-function mostrarNotificacao(mensagem, tipo = 'sucesso') {
+function mostrarNotificacao(mensagem, tipo = 'sucesso', tempo = 2750) {
     // Remove notificações anteriores
     const notificacoesAntigas = document.querySelectorAll('.notificacao');
     notificacoesAntigas.forEach(el => el.remove());
@@ -285,10 +285,11 @@ function mostrarNotificacao(mensagem, tipo = 'sucesso') {
     notificacao.textContent = mensagem;
     document.body.appendChild(notificacao);
     
-    // Remove após a animação
     setTimeout(() => {
-        notificacao.remove();
-    }, 3000);
+        notificacao.classList.add('fadeOut');
+        setTimeout(() => notificacao.remove(), 500);
+    }, tempo);
+
 }
 
 function carregarJogoSalvo() {
@@ -495,4 +496,9 @@ function frase() {
         
         elemento.classList.remove('fade-out');
     }, 500);
+}
+
+function rolarDado() {
+    const resultado = Math.floor(Math.random() * 6) + 1;
+    mostrarNotificacao(`🎲 O dado rolou o número ${resultado} 🎲`, 'dado', 6000);
 }
