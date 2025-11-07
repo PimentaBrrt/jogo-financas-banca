@@ -274,7 +274,7 @@ function rolarDadoPoder(jogadorId) {
     }
 }
 
-function mostrarNotificacao(mensagem, tipo = 'sucesso') {
+function mostrarNotificacao(mensagem, tipo = 'sucesso', tempo = 2750) {
     // Remove notificações anteriores
     const notificacoesAntigas = document.querySelectorAll('.notificacao');
     notificacoesAntigas.forEach(el => el.remove());
@@ -285,10 +285,11 @@ function mostrarNotificacao(mensagem, tipo = 'sucesso') {
     notificacao.textContent = mensagem;
     document.body.appendChild(notificacao);
     
-    // Remove após a animação
     setTimeout(() => {
-        notificacao.remove();
-    }, 3000);
+        notificacao.classList.add('fadeOut');
+        setTimeout(() => notificacao.remove(), 500);
+    }, tempo);
+
 }
 
 function carregarJogoSalvo() {
@@ -409,7 +410,7 @@ function sortearProblemaFinanceiro() {
 
 function iniciarTimerProblema() {
     resetarTimerProblema();
-    tempoRestante = 60;
+    tempoRestante = 50;
     atualizarTimerProblema();
     timerInterval = setInterval(() => {
         tempoRestante--;
@@ -423,8 +424,8 @@ function iniciarTimerProblema() {
 
 function resetarTimerProblema() {
     if (timerInterval) clearInterval(timerInterval);
-    tempoRestante = 60;
-    document.getElementById('timerProblema').innerText = '01:00';
+    tempoRestante = 50;
+    document.getElementById('timerProblema').innerText = '00:50';
 }
 
 function atualizarTimerProblema() {
@@ -457,7 +458,7 @@ const problemasFinanceiros = [
     "Um capital de R$ 3.000 gerou R$ 900 de juros em 2 anos. Qual foi a taxa anual de juros simples?",
     "Um capital de R$ 1.500 foi aplicado a 2% ao mês. Qual o valor dos juros após 8 meses?",
     "Qual capital, aplicado a juros simples de 6% ao mês durante 5 meses, produzirá R$ 450 de juros?",
-    "Uma dívida de R$ 2.000 foi cobrada com 12% de juros simples em 3 meses. Qual o valor total pago?",
+    "Uma dívida de R$ 2.000 foi cobrada com 12% de juros simples ao ano em 3 meses. Qual o valor total pago?",
     "Um investimento rendeu R$ 720 em juros simples, a uma taxa de 3% ao mês, durante 12 meses. Qual foi o capital investido?",
     "Um capital de R$ 1.000 é aplicado a juros compostos de 5% ao mês durante 3 meses. Qual o montante final?",
     "Um investidor aplicou R$ 2.000 a juros compostos de 10% ao ano. Quanto ele terá ao final de 2 anos?",
@@ -473,7 +474,7 @@ const problemasFinanceiros = [
 
 let problemasFinanceirosDisponiveis = [...problemasFinanceiros];
 let timerInterval = null;
-let tempoRestante = 60;
+let tempoRestante = 50;
 
 function frase() {
     const elemento = document.getElementById('problema');
@@ -495,4 +496,9 @@ function frase() {
         
         elemento.classList.remove('fade-out');
     }, 500);
+}
+
+function rolarDado() {
+    const resultado = Math.floor(Math.random() * 6) + 1;
+    mostrarNotificacao(`🎲 O dado rolou o número ${resultado} 🎲`, 'dado', 6000);
 }
